@@ -6,15 +6,18 @@ var player : GameObject;
 var dialog : GameObject;
 
 private var enable_dialog_key : boolean = false;
-var in_conversation : boolean = false;
+private var in_conversation : boolean = false;
 
 private var dialog_component : MonoBehaviour;
 private var player_movement : MonoBehaviour;
 private var player_camera : MonoBehaviour;
 
 private var player_movement_scripts : Component[];
-var dialog_script : Component;
 
+private var wantedRotation : Quaternion;
+private var dialog_script : Component;
+
+var RotationSpeed : float  = 0.1;
 
 function OnTriggerEnter (other : Collider) {
 		Debug.Log ("Entered Trigger");
@@ -34,6 +37,12 @@ function Start () {
 
 function Update () {
 
+		if (this.in_conversation) {
+		 	player.transform.rotation = Quaternion.Lerp(player.transform.rotation, wantedRotation, Time.time * RotationSpeed);
+		}
+
+
+
 		if (this.enable_dialog_key && Input.GetButton("Talk") && !this.in_conversation) {
 
 			Debug.Log("Pressed 'Talk' Button");
@@ -45,7 +54,9 @@ function Update () {
 			 
 			(dialog_script as MonoBehaviour).enabled = true;
 			 			
-			player.transform.LookAt(new Vector3(transform.position.x, transform.position.y, transform.position.z));
+			// player.transform.LookAt(new Vector3(transform.position.x, transform.position.y, transform.position.z));
+			
+			this.wantedRotation = Quaternion.LookRotation(transform.position - player.transform.position);
 			// TOOD: face the person
 			
 		}
