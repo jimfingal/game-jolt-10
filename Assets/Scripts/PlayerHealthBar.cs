@@ -3,8 +3,8 @@ using System.Collections;
 
 public class PlayerHealthBar : MonoBehaviour {
 
-	float totalHealth = 100;
-	float currentHealth = 100;
+	public float totalHealth = 100;
+	public float currentHealth = 100;
 
 	// Use this for initialization
 	void Start () {
@@ -13,6 +13,7 @@ public class PlayerHealthBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		currentHealth = (Mathf.Sin(Time.time) * 47) + 50;
 	
 	}
 
