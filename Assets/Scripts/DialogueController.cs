@@ -3,11 +3,14 @@ using System.Collections;
 
 public class DialogueController : MonoBehaviour {
 
-	public GameObject player;
-	public GameObject playerConversationFlag;
+
 	public float rotationSpeed = 0.01f;
 	public bool loopLastDialogOption = true;
 	public GameObject[] dialogOptions;
+
+
+	private GameObject player;
+	private ConversationStatus playerConversationStatus;
 
 	private bool enableDialogKey = false;
 	private bool inConversation = false;
@@ -18,7 +21,11 @@ public class DialogueController : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
+
+		this.player = GameObject.FindWithTag("PlayerObject");
+		this.playerConversationStatus = player.GetComponent<ConversationStatus>();
 		this.playerMovementScripts = player.GetComponents<MonoBehaviour>();
+
 	}
 
 	// Update is called once per frame
@@ -54,7 +61,7 @@ public class DialogueController : MonoBehaviour {
 	}
 
 	private bool weShouldInitiateConversation() {
-		return this.enableDialogKey && Input.GetButton("Talk") && !this.inConversation && !playerConversationFlag.activeSelf;
+		return this.enableDialogKey && Input.GetButton("Talk") && !this.inConversation && playerConversationStatus.isReadyForNewConversation();
 	}
 
 	private bool weShouldEndConversation() {
@@ -90,7 +97,7 @@ public class DialogueController : MonoBehaviour {
 		
 		this.togglePlayerMovementScripts(false);
 		this.inConversation = true;
-		this.playerConversationFlag.SetActive(true);
+		this.playerConversationStatus.setConversationReadiness(false);
 
 		this.currentDialog = this.getNextDialogOption();
 
@@ -102,7 +109,7 @@ public class DialogueController : MonoBehaviour {
 
 	private void endConversation() {
 		this.inConversation = false;
-		this.playerConversationFlag.SetActive(false);
+		this.playerConversationStatus.setConversationReadiness(true);
 		this.togglePlayerMovementScripts(true);
 		this.dialogIndex++;
 	}
