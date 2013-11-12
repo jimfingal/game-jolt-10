@@ -5,21 +5,16 @@ public class DialogueController : MonoBehaviour {
 
 	public GameObject player;
 	public GameObject playerConversationFlag;
-
 	public float rotationSpeed = 0.01f;
-
 	public bool loopLastDialogOption = true;
-
 	public GameObject[] dialogOptions;
 
-	public bool enableDialogKey = false;
-	public bool inConversation = false;
-	
+	private bool enableDialogKey = false;
+	private bool inConversation = false;
 	private Quaternion wantedRotation;
 	private MonoBehaviour currentDialog;
 	private MonoBehaviour[] playerMovementScripts;
-
-	public int dialogIndex = 0;
+	private int dialogIndex = 0;
 	
 	// Use this for initialization
 	void Start () {
@@ -44,12 +39,12 @@ public class DialogueController : MonoBehaviour {
 	}
 	
 	void OnTriggerEnter (Collider other) {
-		Debug.Log ("Entered Trigger: " + other);
+		Debug.Log ("Entered Trigger ( " + gameObject.transform.parent + ") : " + other);
 		enableDialogKey = true;
 	}
 	
 	void OnTriggerExit (Collider other) {
-		Debug.Log ("Exited Trigger: " + other);
+		Debug.Log ("Exited Trigger ( " +  gameObject.transform.parent + ") : " + other);
 		enableDialogKey = false;
 	}
 
