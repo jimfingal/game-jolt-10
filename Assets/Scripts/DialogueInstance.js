@@ -32,6 +32,9 @@ private var s : Vector2 = Vector2.zero;
 var movement : GameObject;
 var endOn: int = 50; 
 
+var letterSound : Component; 
+
+
 var inCoroutine : boolean = false;
 
 class DialogueEntry {
@@ -54,6 +57,8 @@ class DialogueEntry {
 	var narration : AudioClip[];
 	var script :String;
 	var wait : int = 5;
+	
+
 	// 0 - next, 1 - choice, 2 - password, 3 - event, 4 - end
 	function DialogueEntry() {
 		name = "Name";
@@ -64,9 +69,10 @@ class DialogueEntry {
 		align = 0;
 		exit = new DialogueChoice("Exit");
 		mode = 0;
-	}
 
+	}
 }
+
 
 class DialogueChoice {
 	var shortText :String;
@@ -94,6 +100,10 @@ class Link {
 }
 
 function Start() {
+// Hax
+	var tmp : GameObject;
+	tmp = GameObject.FindWithTag("LetterSound");
+	letterSound = tmp.GetComponent(AudioSource);
 	Restart();
 }
 
@@ -113,8 +123,12 @@ function OnDisable() {
 function Update() {
 	var text = parsedText[lineCount];
 	var chars = (Time.time - timeStart) * textSpeed;
-	if(chars < text.length)
+	if(chars < text.length) {
 		text = text.Substring(0, chars);
+		// if (!letterSound.isPlaying) {
+			letterSound.Play();
+		//}
+	}
 	var img :Texture2D;
 	if(defaultImg)
 		img = defaultImg;
