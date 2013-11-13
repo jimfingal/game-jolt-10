@@ -3,25 +3,27 @@ using System.Collections;
 
 public class Playlist : MonoBehaviour {
 
-	public AudioSource source;
 	public AudioClip[] songs;
 	public bool loop = true;
 	public float delayBetweenTracks = 2f;
 
-	private int index = 0;
+	private AudioSource source;
+	public int index = 0;
 
 	void Start () {
 
-		source.loop = false;
+		this.source = gameObject.GetComponent<AudioSource>();
+		this.source.loop = false;
 
 		if (songs.Length > 0) {
-			playClip(index);
+			playCurrentClip();
 		}
 	
 	}
 
-	void playClip(int index) {
+	void playCurrentClip() {
 
+		source.enabled = true;
 		source.Stop();
 
 		AudioClip nextSong = songs[index];
@@ -29,17 +31,17 @@ public class Playlist : MonoBehaviour {
 		source.clip = nextSong;
 
 		float trackLength = nextSong.length;
-	
+
 		source.Play();
 	
-		index++;
+		this.index++;
 
 		// If we're at the end of the playlist
-		if (index >= songs.Length) {
+		if (this.index >= songs.Length) {
 
 			// If we loop, queue the first song back up
 			if (loop) {
-				index = 0;
+				this.index = 0;
 				StartCoroutine("queueNextSong", trackLength + delayBetweenTracks);
 			} else {
 				// We end here
@@ -56,7 +58,7 @@ public class Playlist : MonoBehaviour {
 	IEnumerator queueNextSong(int waitTime) {
 
 		yield return new WaitForSeconds(waitTime);
-		playClip(index);
+		playCurrentClip();
 
 	}
 
