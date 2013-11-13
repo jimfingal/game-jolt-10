@@ -19,7 +19,7 @@ public class DialogueController : MonoBehaviour {
 
 	private GameObject player;
 	private ConversationStatus playerConversationStatus;
-	private PlayerStatBar playerStatBar;
+	private PlayerStatBar impactedStatBar;
 
 	private bool enableDialogKey = false;
 	private bool inConversation = false;
@@ -38,7 +38,7 @@ public class DialogueController : MonoBehaviour {
 		if (this.barToImpact == null) {
 			this.barToImpact = GameObject.FindWithTag("PlayerHealth");
 		}
-		this.playerStatBar = barToImpact.GetComponent<PlayerStatBar>();
+		this.impactedStatBar = barToImpact.GetComponent<PlayerStatBar>();
 
 	}
 
@@ -140,7 +140,7 @@ public class DialogueController : MonoBehaviour {
 		if (dialogImpact.Length == dialogOptions.Length) {
 			int barImpact = this.dialogImpact[dialogIndex];
 			if (barImpact != 0) {
-				playerStatBar.fadeBar(barImpact);
+				impactedStatBar.fadeBar(barImpact);
 			}
 
 		}
