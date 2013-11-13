@@ -11,13 +11,7 @@ public class BobWhenMove : MonoBehaviour {
 	public float currentTranslation;
 	public float lastTranslation = 0;
 
-	private float initialY;
 	private float dt = 0;
-
-	// Use this for initialization
-	void Start () {
-		initialY = camera.transform.position.y;
-	}
 	
 	// Update is called once per frame
 	void Update () {

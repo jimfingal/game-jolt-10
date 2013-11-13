@@ -18,18 +18,10 @@ public class DrunkEffects : MonoBehaviour {
 	public float dopplerAmount = 0.5f;
 
 	private Vector3 rotation = Vector3.zero;
-	private Quaternion initalRotation;
 
 	public float frequency = 7f;
 	public float zIntensity = 0.5f;
 	public float xIntensity = 0.5f;
-
-	public float currentSinTranslation;
-	public float lastSinTranslation = 0;	
-
-	public float currentCosTranslation;
-	public float lastCosTranslation = 0;	
-	
 
 	public float smooth = 2.0f;
 
@@ -41,7 +33,6 @@ public class DrunkEffects : MonoBehaviour {
 		this.drunkStat = drunkStatContainer.GetComponent<PlayerStatBar>();
 		this.reverbZone = boombox.GetComponent<AudioReverbZone>();
 		this.audioSource = boombox.GetComponent<AudioSource>();
-		this.initalRotation = camera.transform.rotation;
 
 	}
 	
@@ -51,11 +42,9 @@ public class DrunkEffects : MonoBehaviour {
 		if (this.drunkStat.getStatValue() < wobbleThreshold) {
 
 			this.dt += Time.deltaTime * frequency;
-			currentSinTranslation = Mathf.Sin(this.dt);
-			float sinTranslationAmount = currentSinTranslation - lastSinTranslation;
 
-			currentCosTranslation = Mathf.Sin(this.dt + 0.85f);
-			float cosTranslationAmount = currentCosTranslation - lastCosTranslation;
+			float sinTranslationAmount = Mathf.Sin(this.dt);;
+			float cosTranslationAmount =  Mathf.Sin(this.dt + 0.85f);
 
 
 			rotation.x = sinTranslationAmount * xIntensity;
