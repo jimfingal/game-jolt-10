@@ -9,16 +9,20 @@ public class DrunkEffects : MonoBehaviour {
 
 	private PlayerStatBar drunkStat;
 	private AudioReverbZone reverbZone;
+	private AudioSource audioSource;
 
-	public float distortionThreshold = 30;
-	public float wobbleThreshold = 30;
+	public float dopplerThreshold = 20f;
+	public float distortionThreshold = 30f;
+	public float wobbleThreshold = 30f;
+
+	public float dopplerAmount = 0.5f;
 
 	private Vector3 rotation = Vector3.zero;
 	private Quaternion initalRotation;
 
-	public float frequency = 7;
-	public float zIntensity = 2;
-	public float xIntensity = 2;
+	public float frequency = 7f;
+	public float zIntensity = 0.5f;
+	public float xIntensity = 0.5f;
 
 	public float currentSinTranslation;
 	public float lastSinTranslation = 0;	
@@ -36,6 +40,7 @@ public class DrunkEffects : MonoBehaviour {
 	void Start () {
 		this.drunkStat = drunkStatContainer.GetComponent<PlayerStatBar>();
 		this.reverbZone = boombox.GetComponent<AudioReverbZone>();
+		this.audioSource = boombox.GetComponent<AudioSource>();
 		this.initalRotation = camera.transform.rotation;
 
 	}
@@ -70,6 +75,15 @@ public class DrunkEffects : MonoBehaviour {
 			this.reverbZone.reverbPreset = AudioReverbPreset.Livingroom;
 			this.reverbZone.enabled = true;
 			
+		}
+
+		if (this.drunkStat.getStatValue() < dopplerThreshold) {
+			this.audioSource.dopplerLevel = dopplerAmount;
+			this.reverbZone.enabled = false;
+			this.reverbZone.reverbPreset = AudioReverbPreset.Psychotic;
+			this.reverbZone.enabled = true;
+		} else {
+			this.audioSource.dopplerLevel = 0f;
 		}
 	}
 }
