@@ -61,7 +61,7 @@ public class DialogueController : MonoBehaviour {
 	}
 
 	private bool weShouldInitiateConversation() {
-		return this.enableDialogKey && Input.GetButton("Talk") && !this.inConversation && playerConversationStatus.isReadyForNewConversation();
+		return this.enableDialogKey && Input.GetButtonDown("Talk") && !this.inConversation && playerConversationStatus.isReadyForNewConversation();
 	}
 
 	private bool weShouldEndConversation() {
