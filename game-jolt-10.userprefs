@@ -1,10 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SceneFader.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameStartup.cs">
     <Files>
       <File FileName="Assets/Scripts/SceneFader.cs" Line="69" Column="3" />
       <File FileName="Assets/Scripts/StartSongMidway.cs" Line="9" Column="18" />
       <File FileName="Assets/Scripts/SampleLevelChanger.cs" Line="17" Column="45" />
+      <File FileName="Assets/Scripts/GameStartup.cs" Line="11" Column="6" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
