@@ -69,7 +69,13 @@ class DialogueInstanceEditor extends Editor {
 		GUILayout.EndHorizontal();
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("Mode:", GUILayout.Width(60));
-		dialogue[i].mode = GUILayout.Toolbar(dialogue[i].mode, ["Continue", "Choice", "Password", "Script", "End", "EndAuto"]);
+		
+		var options : String[] =  ["Continue", "Choice", "Password", "Script", "End", "EndAuto"];
+
+		
+		// dialogue[i].mode = GUILayout.Toolbar(dialogue[i].mode, options);
+		dialogue[i].mode = EditorGUILayout.Popup(dialogue[i].mode, options);
+		
 		GUILayout.EndHorizontal();
 		switch (dialogue[i].mode) {
 			case 0:
