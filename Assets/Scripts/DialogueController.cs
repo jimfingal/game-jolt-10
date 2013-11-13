@@ -6,9 +6,13 @@ public class DialogueController : MonoBehaviour {
 
 	public float rotationSpeed = 0.01f;
 	public bool loopLastDialogOption = true;
+	public bool triggerOnlyOnce = false;
+
 	public GameObject[] dialogOptions;
 	public bool paralyzesPlayerDuringDialogue = true;
 	public bool orientsPlayerTowardsSelf = true;
+
+	public bool triggerOnCollision = false;
 
 	private GameObject player;
 	private ConversationStatus playerConversationStatus;
@@ -62,7 +66,10 @@ public class DialogueController : MonoBehaviour {
 	}
 
 	private bool weShouldInitiateConversation() {
-		return this.enableDialogKey && Input.GetButtonDown("Talk") && !this.inConversation && playerConversationStatus.isReadyForNewConversation();
+		return this.enableDialogKey && 
+				(Input.GetButtonDown("Talk") || this.triggerOnCollision) 
+				&& !this.inConversation && playerConversationStatus.isReadyForNewConversation() &&
+				!(triggerOnlyOnce && dialogIndex > 0);
 	}
 
 	private bool weShouldEndConversation() {
@@ -105,8 +112,8 @@ public class DialogueController : MonoBehaviour {
 		this.currentDialog = this.getNextDialogOption();
 
 		this.currentDialog.enabled = true;
-
 		this.wantedRotation = Quaternion.LookRotation(transform.position - player.transform.position);
+
 
 	}
 
