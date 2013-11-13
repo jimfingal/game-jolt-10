@@ -70,7 +70,7 @@ class DialogueInstanceEditor extends Editor {
 		GUILayout.BeginHorizontal();
 		GUILayout.Label("Mode:", GUILayout.Width(60));
 		
-		var options : String[] =  ["Continue", "Choice", "Password", "Script", "End", "EndAuto"];
+		var options : String[] =  ["Continue", "Choice", "Password", "Script", "End", "AutoEnd", "AutoContinue"];
 
 		
 		// dialogue[i].mode = GUILayout.Toolbar(dialogue[i].mode, options);
@@ -193,7 +193,22 @@ class DialogueInstanceEditor extends Editor {
 				break;
 			case 5:
 				GUILayout.BeginHorizontal();
-				dialogue[i].waitBeforeEnd = EditorGUILayout.IntField("Delay before auto-end: ", dialogue[i].waitBeforeEnd);
+				dialogue[i].wait = EditorGUILayout.IntField("Delay: ", dialogue[i].wait);
+				GUILayout.EndHorizontal();
+				break;
+			case 6:
+				GUILayout.BeginHorizontal();
+				GUILayout.Label("Next:", GUILayout.Width(60));
+				dialogue[i].next = EditorGUILayout.Popup(dialogue[i].next, MakeTexts());
+				if(GUILayout.Button("+", GUILayout.Width(20))) {
+					AddDialogueEntry();
+					dialogue[i].next = dialogue.length;
+				}
+				if(GUILayout.Button("->", GUILayout.Width(24)))
+					GoTo(dialogue[i].next);
+				GUILayout.EndHorizontal();
+				GUILayout.BeginHorizontal();
+				dialogue[i].wait = EditorGUILayout.IntField("Delay: ", dialogue[i].wait);
 				GUILayout.EndHorizontal();
 				break;
 

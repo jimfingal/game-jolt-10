@@ -32,6 +32,8 @@ private var s : Vector2 = Vector2.zero;
 var movement : GameObject;
 var endOn: int = 50; 
 
+var inCoroutine : boolean = false;
+
 class DialogueEntry {
 	var name :String;
 	var longText :String;
@@ -51,7 +53,7 @@ class DialogueEntry {
 	var mode :int;
 	var narration : AudioClip[];
 	var script :String;
-	var waitBeforeEnd : int = 5;
+	var wait : int = 5;
 	// 0 - next, 1 - choice, 2 - password, 3 - event, 4 - end
 	function DialogueEntry() {
 		name = "Name";
@@ -227,18 +229,37 @@ function DoNextButton() {
 			if(lineCount < parsedText.length - 1) {
 				if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
 					ProgressLineCount();
-			} else {
+			} else if (!inCoroutine) {
 				// if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-					WaitAndEnd(display.waitBeforeEnd);
+					WaitAndEnd(display.wait);
+			}
+			break;
+		case 6:
+			if(lineCount < parsedText.length - 1) {
+				if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
+					ProgressLineCount();
+			} else  if (!inCoroutine) {
+				// if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
+					WaitAndContinue(display.wait, display.next);
 			}
 			break;
 	}
 }
 
 function WaitAndEnd (waitTime : float) {
+		inCoroutine = true;
 		// suspend execution for waitTime seconds
 		yield WaitForSeconds (waitTime);
+		inCoroutine = false;
 		EndDialogue();
+}
+
+function WaitAndContinue (waitTime : float, next : int) {
+		// suspend execution for waitTime seconds
+		inCoroutine = true;
+		yield WaitForSeconds (waitTime);
+		inCoroutine = false;
+		LoadDialogue(next);
 }
 
 function Restart() {
