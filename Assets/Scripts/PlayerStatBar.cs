@@ -1,23 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerHealthBar : MonoBehaviour {
+public class PlayerStatBar : MonoBehaviour {
 
-	public float totalHealth = 100;
-	public float currentHealth = 100;
+	public string label;
+	public float maxValue = 100;
+	public float currentValue = 100;
 	public float fadeSpeed = 0.1f;
 
 	private bool toggleOscillate = false;
 	private float oscillationStartTime;
 
-
 	private float oscillationStart = -1;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
+		
 	// Update is called once per frame
 	void Update () {
 
@@ -33,39 +29,46 @@ public class PlayerHealthBar : MonoBehaviour {
 
 			Debug.Log("Pressed the test1 button");
 
-			fadeHealthBar(-10);
+			fadeBar(-10);
 
 		}
 
-		if (currentHealth <= 5) {
-			currentHealth = 5;
+		if (currentValue <= 5) {
+			currentValue = 5;
 		}
 	}
 
 	public void testOscillate(float amount) {
 
 		if (Input.GetButtonDown("Test2")) {
+
 			Debug.Log("Pressed the test2 button");
 
 			if (oscillationStart > 0) {
-				currentHealth = oscillationStart;
+				currentValue = oscillationStart;
 			}
 			toggleOscillate = !toggleOscillate;
-			oscillationStart = currentHealth;
+			oscillationStart = currentValue;
 			oscillationStartTime = Time.time;
 		}
 
 		if (toggleOscillate) {
 
 			float oscillationAmount = Mathf.Sin(Time.time - oscillationStartTime) * amount;
-			currentHealth = oscillationStart + oscillationAmount;
+			currentValue = oscillationStart + oscillationAmount;
 
 		}
 	}
 
-	public float getHealthPercentage() {
+	public float getStatValue() {
+		
+		return currentValue;
+		
+	}
+
+	public float getStatPercentage() {
 	
-		return currentHealth / totalHealth;
+		return currentValue / maxValue;
 	
 	}
 
@@ -76,7 +79,7 @@ public class PlayerHealthBar : MonoBehaviour {
 	}
 
 
-	public void fadeHealthBar(int amount) {
+	public void fadeBar(int amount) {
 
 		StartCoroutine("Fade", amount);
 
@@ -86,12 +89,12 @@ public class PlayerHealthBar : MonoBehaviour {
 
 		// Debug.Log("In Coroutine. My current health is: " + currentHealth + " and target amount is " + amount);
 
-		float target = currentHealth + amount;
+		float target = currentValue + amount;
 
 		if (amount > 0) {
 			
-			for (float f = currentHealth; f <= target; f += fadeSpeed) {
-				currentHealth += fadeSpeed;
+			for (float f = currentValue; f <= target; f += fadeSpeed) {
+				currentValue += fadeSpeed;
 				//Debug.Log("Setting current health to " + f);
 				yield return new WaitForSeconds(1 / 60);
 			}
@@ -99,8 +102,8 @@ public class PlayerHealthBar : MonoBehaviour {
 			
 		} else {
 			
-			for (float f = currentHealth; f >= target; f -= fadeSpeed) {
-				currentHealth -= fadeSpeed;
+			for (float f = currentValue; f >= target; f -= fadeSpeed) {
+				currentValue -= fadeSpeed;
 				//Debug.Log("Setting current health to " + f);
 				yield return new WaitForSeconds(1 / 60);
 			}

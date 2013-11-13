@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerHealthBarDisplay : MonoBehaviour
+public class PlayerStatBarDisplay : MonoBehaviour
 {
 
 	//current progress
@@ -18,36 +18,28 @@ public class PlayerHealthBarDisplay : MonoBehaviour
 	private Vector2 pos;
 	private Vector2 size;
 
-	private PlayerHealthBar playerHealthBar;
+	private PlayerStatBar statBar;
 
-	public bool drawProgress = true;
+	public bool drawBar = true;
 
 	public GUISkin customSkin;
 
 	void OnGUI()
 	{
 		//draw the background:
-		if (drawProgress) {
+		if (drawBar) {
 
 			GUI.Box(new Rect (pos.x, pos.y, size.x, size.y), "");
-
 			GUI.skin = customSkin;
-			GUI.Box(new Rect(pos.x, pos.y, playerHealthBar.getHealthPercentage() * size.x, size.y), "");
+			GUI.Box(new Rect(pos.x, pos.y, statBar.getStatPercentage() * size.x, size.y), "");
 			GUI.skin = null;
 
 		}
 	}
-	
-	void Update()
-	{
-		//the player's health
-		barDisplay = this.playerHealthBar.getHealthPercentage();
-	}
 
 	void Start() 
 	{
-		this.playerHealthBar = this.gameObject.GetComponent<PlayerHealthBar>();
-
+		this.statBar = this.gameObject.GetComponent<PlayerStatBar>();
 		this.pos = new Vector2(boxPosX,boxPosY);
 		this.size = new Vector2(boxSizeX,boxSizeY);
 	}
