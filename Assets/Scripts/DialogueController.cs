@@ -9,6 +9,9 @@ public class DialogueController : MonoBehaviour {
 	public bool triggerOnlyOnce = false;
 
 	public GameObject[] dialogOptions;
+	public int[] dialogImpact;
+	public GameObject barToImpact = null;
+
 	public bool paralyzesPlayerDuringDialogue = true;
 	public bool orientsPlayerTowardsSelf = true;
 
@@ -16,6 +19,7 @@ public class DialogueController : MonoBehaviour {
 
 	private GameObject player;
 	private ConversationStatus playerConversationStatus;
+	private PlayerStatBar impactedStatBar;
 
 	private bool enableDialogKey = false;
 	private bool inConversation = false;
@@ -30,6 +34,11 @@ public class DialogueController : MonoBehaviour {
 		this.player = GameObject.FindWithTag("PlayerObject");
 		this.playerConversationStatus = player.GetComponent<ConversationStatus>();
 		this.playerMovementScripts = player.GetComponents<MonoBehaviour>();
+
+		if (this.barToImpact == null) {
+			this.barToImpact = GameObject.FindWithTag("PlayerHealth");
+		}
+		this.impactedStatBar = barToImpact.GetComponent<PlayerStatBar>();
 
 	}
 
@@ -112,7 +121,10 @@ public class DialogueController : MonoBehaviour {
 		this.currentDialog = this.getNextDialogOption();
 
 		this.currentDialog.enabled = true;
-		this.wantedRotation = Quaternion.LookRotation(transform.position - player.transform.position);
+
+		Vector3 myPosition = gameObject.transform.parent.transform.position;
+		Vector3 playerPosition = player.transform.position;
+		this.wantedRotation = Quaternion.LookRotation(myPosition - playerPosition);
 
 
 	}
@@ -123,7 +135,18 @@ public class DialogueController : MonoBehaviour {
 		if (this.paralyzesPlayerDuringDialogue) {
 			this.togglePlayerMovementScripts(true);
 		}
+
+		
+		if (dialogImpact.Length == dialogOptions.Length) {
+			int barImpact = this.dialogImpact[dialogIndex];
+			if (barImpact != 0) {
+				impactedStatBar.fadeBar(barImpact);
+			}
+
+		}
+
 		this.dialogIndex++;
+
 	}
 
 }

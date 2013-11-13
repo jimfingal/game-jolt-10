@@ -32,6 +32,7 @@ public class PlayerStatBarDisplay : MonoBehaviour
 			GUI.Box(new Rect (pos.x, pos.y, size.x, size.y), "");
 			GUI.skin = customSkin;
 			GUI.Box(new Rect(pos.x, pos.y, statBar.getStatPercentage() * size.x, size.y), "");
+			GUI.Label(new Rect (pos.x, pos.y, size.x, size.y), statBar.label);
 			GUI.skin = null;
 
 		}
