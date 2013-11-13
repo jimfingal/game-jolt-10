@@ -1,8 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Standard Assets/Scripts/Camera Scripts/CameraFollowX.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ConstrainXYMovement.js">
     <Files>
       <File FileName="Assets/Standard Assets/Scripts/Camera Scripts/CameraFollowX.js" Line="13" Column="32" />
+      <File FileName="Assets/Scripts/ConstrainXYMovement.js" Line="6" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
