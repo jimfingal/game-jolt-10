@@ -102,6 +102,7 @@ public class LevelChangingDialogue : MonoBehaviour {
 	}
 
 	private void endConversation() {
+
 		this.inConversation = false;
 		this.playerConversationStatus.setConversationReadiness(true);
 		if (this.paralyzesPlayerDuringDialogue) {
@@ -109,7 +110,9 @@ public class LevelChangingDialogue : MonoBehaviour {
 		}
 
 		player.transform.Translate(pushBack, Space.World);
+
 		enableDialogKey = false;
+
 
 	}
 

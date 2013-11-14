@@ -6,15 +6,12 @@ public class ConstrainOutsideMovement : MonoBehaviour {
 	// Use this for initialization
 
 	private float initialXPosition;
-	private float initialYRotation;
-
 
 	private Quaternion initialRotation;
 
 
 	void Start () {
 		initialXPosition = transform.position.x;
-		initialYRotation = transform.rotation.y;
 		initialRotation = transform.rotation;
 	}
 	
