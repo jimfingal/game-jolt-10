@@ -8,27 +8,57 @@ public class Title : MonoBehaviour {
 	public Texture mediumTexture;
 	public Texture largeTexture;
 
-	private bool smallEnabled;
-	private bool mediumEnabled;
-	private bool largeEnabled;
+	public float smallDelay = 0;
+	public float mediumDelay = 1;
+	public float largeDelay = 2;
+
+	public bool smallEnabled;
+	public bool mediumEnabled;
+	public bool largeEnabled;
 	private AudioSource sound;
 
 	private Rect frame;
 
+	public float dt;
+
 	// Use this for initialization
 	void Start () {
 
-		smallEnabled = true;
-		mediumEnabled = true;
-		largeEnabled = true;
+		smallEnabled = false;
+		mediumEnabled = false;
+		largeEnabled = false;
 
 		frame = new Rect(0,0,Screen.width,Screen.height);
 	
+		sound = gameObject.GetComponent<AudioSource>();
+		StartCoroutine("triggerAnimation");
+
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	void playSound() {
+		sound.Stop();
+		sound.Play();
+	}
+
+	IEnumerator triggerAnimation() {
+
+		sound.loop = false;
+
+		yield return new WaitForSeconds(smallDelay);
+
+		smallEnabled = true;
+		playSound();
+
+		yield return new WaitForSeconds(mediumDelay);
+
+		mediumEnabled = true;
+		playSound();
+
+		yield return new WaitForSeconds(largeDelay);
+
+		largeEnabled = true;
+		playSound();
+
 	}
 
 
