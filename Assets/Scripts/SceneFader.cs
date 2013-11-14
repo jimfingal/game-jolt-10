@@ -65,7 +65,7 @@ public class SceneFader : MonoBehaviour {
 		float alphaBlend = (255 - (255 * percentageDone)) / 255;
 
 		GUI.depth = 0;
-		GUI.color = new Color(63, 63, 63, alphaBlend);
+		GUI.color = new Color(0, 0, 0, alphaBlend);
 		GUI.DrawTexture(new Rect( 0, 0, Screen.width, Screen.height ), this.blankScreenTexture, ScaleMode.StretchToFill, true);
 		GUI.depth = 1;
 		AudioListener.volume = percentageDone;
@@ -78,10 +78,10 @@ public class SceneFader : MonoBehaviour {
 		float percentageDone = (Time.time - fadeOutStart) / fadeLength;
 		float alphaBlend = (255 * percentageDone) / 255;
 
-		GUI.color = new Color(63, 63, 63, alphaBlend);
+		GUI.color = new Color(0, 0, 0, alphaBlend);
 		GUI.DrawTexture(new Rect( 0, 0, Screen.width, Screen.height ), this.blankScreenTexture, ScaleMode.StretchToFill, true);
 
-		AudioListener.volume = percentageDone;
+		AudioListener.volume = 1 - percentageDone;
 
 		return percentageDone;
 	}
