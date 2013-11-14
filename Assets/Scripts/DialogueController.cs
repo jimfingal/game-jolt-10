@@ -38,8 +38,10 @@ public class DialogueController : MonoBehaviour {
 		if (this.barToImpact == null) {
 			this.barToImpact = GameObject.FindWithTag("PlayerHealth");
 		}
-		this.impactedStatBar = barToImpact.GetComponent<PlayerStatBar>();
 
+		if (barToImpact) {
+			this.impactedStatBar = barToImpact.GetComponent<PlayerStatBar>();
+		}
 	}
 
 	// Update is called once per frame
