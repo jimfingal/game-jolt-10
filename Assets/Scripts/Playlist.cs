@@ -16,7 +16,7 @@ public class Playlist : MonoBehaviour {
 		this.source.loop = false;
 
 		if (songs.Length > 0) {
-			playCurrentClip();
+			StartCoroutine("queueNextSong", 0.5);
 		}
 	
 	}

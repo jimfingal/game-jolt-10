@@ -57,7 +57,7 @@ class DialogueEntry {
 	var narration : AudioClip[];
 	var script :String;
 	var wait : int = 5;
-	
+		
 
 	// 0 - next, 1 - choice, 2 - password, 3 - event, 4 - end
 	function DialogueEntry() {

@@ -29,6 +29,7 @@ public class PlayerStatBarDisplay : MonoBehaviour
 		//draw the background:
 		if (drawBar) {
 
+			GUI.depth = 2;
 			GUI.Box(new Rect (pos.x, pos.y, size.x, size.y), "");
 			GUI.skin = customSkin;
 			GUI.Box(new Rect(pos.x, pos.y, statBar.getStatPercentage() * size.x, size.y), "");
