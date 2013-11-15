@@ -46,14 +46,14 @@ public class Credits : MonoBehaviour {
 
 		for (int i = 0; i < lines.Length; i++) {
 
-			GUI.Label(new Rect (0,  i * (mainFontSize * 2), Screen.width, 50), lines[i]);
+			GUI.Label(new Rect (0,  50 + i * (mainFontSize * 2), Screen.width, 50), lines[i]);
 		}
 
 		this.skin.label.fontSize = otherFontSize;
 	
 		for (int i = 0; i < attributionLines.Length; i++) {
 
-			GUI.Label(new Rect (0,  50 + Screen.height/3 + i * (otherFontSize * 2), Screen.width, 50), attributionLines[i]);
+			GUI.Label(new Rect (0,  100 + Screen.height/3 + i * (otherFontSize * 2), Screen.width, 50), attributionLines[i]);
 		}
 
 		if (strobeEnabled && strobe) {

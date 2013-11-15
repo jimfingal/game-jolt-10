@@ -36,6 +36,7 @@ public class Title : MonoBehaviour {
 	}
 
 	void playSound() {
+		sound.enabled = true;
 		sound.Stop();
 		sound.Play();
 	}

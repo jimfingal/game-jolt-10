@@ -24,6 +24,10 @@ public class SceneFader : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		startTime = Time.time;
+
+		if (!fadeIn) {
+			AudioListener.volume = 1;
+		}
 	}
 	
 	// Update is called once per frame
