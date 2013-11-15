@@ -265,6 +265,8 @@ function WaitAndEnd (waitTime : float) {
 		// suspend execution for waitTime seconds
 		yield WaitForSeconds (waitTime);
 		inCoroutine = false;
+		parsedText = new Array();
+		curContent = GUIContent("");
 		EndDialogue();
 }
 
@@ -284,6 +286,7 @@ function Restart() {
 
 function LoadDialogue (i:int) {
 	curItem = i;
+	curContent = GUIContent("");
 	timeStart = Time.time;
 	display = new DialogueEntry();
 	display = dialogue[i];
