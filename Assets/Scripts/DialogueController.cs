@@ -124,8 +124,9 @@ public class DialogueController : MonoBehaviour {
 
 		this.currentDialog.enabled = true;
 
-		Vector3 myPosition = gameObject.transform.parent.transform.position;
+		Vector3 myPosition = gameObject.transform.position;
 		Vector3 playerPosition = player.transform.position;
+
 		this.wantedRotation = Quaternion.LookRotation(myPosition - playerPosition);
 
 
