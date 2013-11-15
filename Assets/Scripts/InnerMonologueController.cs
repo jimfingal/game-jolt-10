@@ -11,9 +11,7 @@ public class InnerMonologueController : MonoBehaviour {
 	public List<GameObject> happyThoughts = new List<GameObject>();
 	public List<GameObject> mediocreThoughts = new List<GameObject>();
 	public List<GameObject> sadThoughts = new List<GameObject>();
-
-	public GameObject[] dialogOptions;
-
+	
 	private GameObject moodObject;
 	private PlayerStatBar mood;
 
