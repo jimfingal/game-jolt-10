@@ -19,7 +19,7 @@ public class ConstrainOutsideMovement : MonoBehaviour {
 	void Update () {
 
 		transform.position = new Vector3(initialXPosition ,transform.position.y, transform.position.z);
-		transform.rotation = initialRotation;
+		// transform.rotation = initialRotation;
 
 	}
 }

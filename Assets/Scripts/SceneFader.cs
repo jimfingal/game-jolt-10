@@ -16,13 +16,28 @@ public class SceneFader : MonoBehaviour {
 	private bool fadeOut = false;
 
 
+	public bool autoFadeOut = false;
+	public float autoFadeOutTimer = 10;
+	public string autoTransitionTo;
+
+
 	// Use this for initialization
 	void Start () {
 		startTime = Time.time;
+
+		if (!fadeIn) {
+			AudioListener.volume = 1;
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		if (autoFadeOut && Time.time - startTime > autoFadeOutTimer) {
+			triggerFadeOut(autoTransitionTo);
+			autoFadeOut = false;
+		}
+
 	}
 
 
