@@ -28,9 +28,12 @@ public class SceneFader : MonoBehaviour {
 	void Start () {
 		startTime = Time.time;
 
-		if (!fadeIn) {
+		if (fadeIn) {
+			AudioListener.volume = 0;
+		} else {
 			AudioListener.volume = 1;
 		}
+
 	}
 	
 	// Update is called once per frame
@@ -86,6 +89,7 @@ public class SceneFader : MonoBehaviour {
 
 		GUI.color = new Color(0, 0, 0, alphaBlend);
 		GUI.DrawTexture(new Rect( 0, 0, Screen.width, Screen.height ), this.blankScreenTexture, ScaleMode.StretchToFill, true);
+
 		AudioListener.volume = percentageDone;
 
 		spy = percentageDone;
