@@ -2,17 +2,9 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/DrunkEffects.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerStatBar.cs" Line="84" Column="17" />
-      <File FileName="Assets/Scripts/PlayerStatBarDisplay.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/DrunkEffects.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/DialogueController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Strobe.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/LevelChangingDialogue.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/LookAtTarget.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/CameraEndZoom.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Credits.cs" Line="20" Column="14" />
-      <File FileName="Assets/Scripts/Title.cs" Line="37" Column="1" />
-      <File FileName="Assets/Scripts/SceneFader.cs" Line="81" Column="17" />
+      <File FileName="Assets/Scripts/Inhibitions.cs" Line="43" Column="2" />
+      <File FileName="Assets/Scripts/PlayerStatBar.cs" Line="26" Column="42" />
+      <File FileName="Assets/Scripts/DrunkEffects.cs" Line="69" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

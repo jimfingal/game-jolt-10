@@ -4,10 +4,8 @@ using System.Collections;
 public class DrunkEffects : MonoBehaviour {
 
 	public GameObject camera;
-	public GameObject drunkStatContainer;
 	public GameObject boombox;
 
-	private PlayerStatBar drunkStat;
 	private AudioReverbZone reverbZone;
 	private AudioSource audioSource;
 
@@ -28,9 +26,28 @@ public class DrunkEffects : MonoBehaviour {
 	private float dt = 0;
 
 
+	public GameObject moodObject;
+	public GameObject sobrietyObject;
+	
+	private PlayerStatBar mood;
+	private PlayerStatBar sobriety;
+	
+	private float lastSobriety;
+	
+	public float oscillationThreshold = 40;
+	public float oscillationAmount = 5;
+
+
+
 	// Use this for initialization
 	void Start () {
-		this.drunkStat = drunkStatContainer.GetComponent<PlayerStatBar>();
+
+		
+		mood = moodObject.GetComponent<PlayerStatBar>();
+		sobriety = sobrietyObject.GetComponent<PlayerStatBar>();
+		
+		lastSobriety = sobriety.getStatValue();
+
 		this.reverbZone = boombox.GetComponent<AudioReverbZone>();
 		this.audioSource = boombox.GetComponent<AudioSource>();
 
@@ -38,8 +55,25 @@ public class DrunkEffects : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		// Oscillate mood once we pass a certain sobriety threshold
+		if (lastSobriety >= oscillationThreshold && this.sobriety.getStatValue() < oscillationThreshold) {
+			mood.oscillate(oscillationAmount);
+		}
+
+
+		// Add to mood whatever we lose in sobriety
+		float diff = lastSobriety - this.sobriety.getStatValue();
 		
-		if (this.drunkStat.getStatValue() < wobbleThreshold) {
+		if (diff > 0) {
+			mood.currentValue += diff / 2;
+		}
+		lastSobriety = this.sobriety.getStatValue();
+
+
+		// Test for effects
+
+		if (this.sobriety.getStatValue() < wobbleThreshold) {
 
 			this.dt += Time.deltaTime * frequency;
 
@@ -55,7 +89,7 @@ public class DrunkEffects : MonoBehaviour {
 
 		} 
 
-		if (this.drunkStat.getStatValue() < distortionThreshold) {
+		if (this.sobriety.getStatValue() < distortionThreshold) {
 			this.reverbZone.enabled = false;
 			this.reverbZone.reverbPreset = AudioReverbPreset.Drugged;
 			this.reverbZone.enabled = true;
@@ -66,7 +100,7 @@ public class DrunkEffects : MonoBehaviour {
 			
 		}
 
-		if (this.drunkStat.getStatValue() < dopplerThreshold) {
+		if (this.sobriety.getStatValue() < dopplerThreshold) {
 			this.audioSource.dopplerLevel = dopplerAmount;
 			this.reverbZone.enabled = false;
 			this.reverbZone.reverbPreset = AudioReverbPreset.Psychotic;
