@@ -10,6 +10,7 @@ public class PlayerStatBar : MonoBehaviour {
 
 	private bool toggleOscillate = false;
 	private float oscillationStartTime;
+	private float oscillationAmount = 0;
 
 	private float oscillationStart = -1;
 
@@ -18,8 +19,13 @@ public class PlayerStatBar : MonoBehaviour {
 	void Update () {
 
 		testFade();
-
-		testOscillate(5);
+		
+		if (toggleOscillate) {
+			
+			float diff = Mathf.Sin(Time.time - oscillationStartTime) * oscillationAmount;
+			currentValue = oscillationStart + diff;
+			
+		}
 
 	}
 
@@ -38,6 +44,7 @@ public class PlayerStatBar : MonoBehaviour {
 		}
 	}
 
+	/*
 	public void testOscillate(float amount) {
 
 		if (Input.GetButtonDown("Test2")) {
@@ -54,10 +61,20 @@ public class PlayerStatBar : MonoBehaviour {
 
 		if (toggleOscillate) {
 
-			float oscillationAmount = Mathf.Sin(Time.time - oscillationStartTime) * amount;
+			oscillationAmount = Mathf.Sin(Time.time - oscillationStartTime) * amount;
 			currentValue = oscillationStart + oscillationAmount;
 
 		}
+	}
+	*/
+
+	public void oscillate(float amount) {
+
+		toggleOscillate = true;
+		oscillationStart = currentValue;
+		oscillationStartTime = Time.time;
+		oscillationAmount = amount;
+
 	}
 
 	public float getStatValue() {
