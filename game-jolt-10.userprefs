@@ -5,8 +5,14 @@
       <File FileName="Assets/Scripts/Credits.cs" Line="79" Column="1" />
       <File FileName="Assets/Scripts/ConstrainOutsideMovement.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/SceneFader.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/InnerMonologueController.cs" Line="92" Column="32" />
-      <File FileName="Assets/Scripts/DialogueController.cs" Line="127" Column="44" />
+      <File FileName="Assets/Scripts/InnerMonologueController.cs" Line="10" Column="2" />
+      <File FileName="Assets/Scripts/DialogueController.cs" Line="170" Column="31" />
+      <File FileName="Assets/Scripts/PlayerStatBarDisplay.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/DialogueInstance.js" Line="53" Column="9" />
+      <File FileName="Assets/Scripts/DrunkEffects.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/StatsTracker.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/PartyTimer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/DefaultDialogue.cs" Line="28" Column="23" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

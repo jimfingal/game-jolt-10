@@ -29,10 +29,10 @@ var ints : int[] = [0, 0, 0, 0];
 var strings : String[] = ["", "", "", ""]; 
 private var jumpto :int;
 private var s : Vector2 = Vector2.zero;
-var movement : GameObject;
+private var movement : GameObject;
 var endOn: int = 50; 
 
-var letterSound : Component; 
+private var letterSound : Component; 
 
 private var displayChoice : boolean = false;
 
@@ -50,7 +50,7 @@ private var AUTOEND : int = 5;
 private var AUTOCONTINUE : int = 6;
 
 
-var inCoroutine : boolean = false;
+private var inCoroutine : boolean = false;
 
 class DialogueEntry {
 	var name :String;

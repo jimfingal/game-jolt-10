@@ -16,7 +16,7 @@ public class InnerMonologueController : MonoBehaviour {
 	private PlayerStatBar mood;
 
 	public float intrusiveThoughtInterval;
-	private int frame = 1;
+	public int frame = 1;
 
 	private bool inConversation = false;
 
@@ -24,6 +24,10 @@ public class InnerMonologueController : MonoBehaviour {
 
 	private GameObject player;
 	private ConversationStatus playerConversationStatus;
+
+	void OnEnable() {
+		this.frame = 1;
+	}
 
 	// Use this for initialization
 	void Start () {
