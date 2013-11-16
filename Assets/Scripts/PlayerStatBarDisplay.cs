@@ -7,12 +7,13 @@ public class PlayerStatBarDisplay : MonoBehaviour
 	//current progress
 	public float barDisplay;
 
+	/*
 	public int boxPosX = 10;
 	public int boxPosY = 500;
 
 	public int boxSizeX = 250;
 	public int boxSizeY = 50;
-
+	*/
 
 	//public Texture2D progressForeground;
 

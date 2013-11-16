@@ -66,7 +66,7 @@ public class DrunkEffects : MonoBehaviour {
 		float diff = lastSobriety - this.sobriety.getStatValue();
 		
 		if (diff > 0) {
-			mood.currentValue += diff / 2;
+			mood.currentValue += diff / 3;
 		}
 		lastSobriety = this.sobriety.getStatValue();
 

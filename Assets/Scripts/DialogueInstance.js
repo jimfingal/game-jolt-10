@@ -34,6 +34,21 @@ var endOn: int = 50;
 
 var letterSound : Component; 
 
+private var displayChoice : boolean = false;
+
+
+private var TOP : int = 0;
+private var MIDDLE : int = 1;
+private var BOTTOM : int = 2;
+
+private var CONTINUE : int = 0;
+private var CHOICE : int = 1;
+private var PASSWORD : int = 2;
+private var SCRIPT : int = 3;
+private var END : int = 4;
+private var AUTOEND : int = 5;
+private var AUTOCONTINUE : int = 6;
+
 
 var inCoroutine : boolean = false;
 
@@ -128,6 +143,9 @@ function Update() {
 		// if (!letterSound.isPlaying) {
 			letterSound.Play();
 		//}
+		displayChoice = false;
+	} else {
+		displayChoice = true;
 	}
 	var img :Texture2D;
 	if(defaultImg)
@@ -161,6 +179,7 @@ function OnGUI() {
 							GUILayout.EndHorizontal();
 							break;
 						case 1:
+							
 							var p = 0;
 							if(display.align == 1)
 								p = Screen.width - 400;
@@ -172,15 +191,24 @@ function OnGUI() {
 							GUI.Box(Rect(0, Screen.height - 120, Screen.width, 120), curContent, "textboxplayer");
 							break;
 						case 2:
+						/*
 							GUI.Box(Rect(30, Screen.height / 2 - 60, Screen.width - 60, 120), curContent, "textboxmiddle");
 							break;
+							*/
+							GUILayout.BeginHorizontal("textboxinternal", GUILayout.Width(Screen.width));
+							if(display.align == 0 && curContent.image)
+								GUILayout.Label(curContent.image, "img");
+							GUILayout.Label(curContent.text, "text");
+							if(display.align == 1 && curContent.image)
+								GUILayout.Label(curContent.image, GUILayout.Width(256));
+							GUILayout.EndHorizontal();
 					}
 					/*	for (var l in display.links) {
 					 GUILayout.Button(l.shortText);
 					 }*/
 					DoNextButton();
 				}
-				if(display.choices) {
+				if(display.choices && displayChoice) {
 					if(display.choices.length > 0 && lineCount >= parsedText.length - 1 && display.mode == 1) {
 						if(display.choiceMode == 1) {
 							ShowWheel();
@@ -195,68 +223,73 @@ function OnGUI() {
 }
 
 function DoNextButton() {
-	switch(display.mode) {
-		case 0:
-			if(lineCount < parsedText.length - 1) {
-				if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-					ProgressLineCount();
-			} else {
-				if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-					LoadDialogue(display.next);
-			}
-			break;
-		case 1:
-			if(lineCount < parsedText.length - 1) {
-				if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-					ProgressLineCount();
-			}
-			break;
-		case 2:
-			if(lineCount < parsedText.length - 1) {
-				if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-					ProgressLineCount();
-			} else {
-				ShowPassword();
-			}
-			break;
-		case 3:
-			if(lineCount < parsedText.length - 1) {
-				if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-					ProgressLineCount();
-			} else {
-				if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow")) {
-					var d = gameObject.GetComponent("DialogueInstance");
-					eval(display.script);
+
+	var nextHeight : int = 0;
+
+		if (displayChoice) {
+		switch(display.mode) {
+			case 0:
+				if(lineCount < parsedText.length - 1) {
+					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
+						ProgressLineCount();
+				} else {
+					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
+						LoadDialogue(display.next);
 				}
-			}
-			break;
-		case 4:
-			if(lineCount < parsedText.length - 1) {
-				if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-					ProgressLineCount();
-			} else {
-				if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-					EndDialogue();
-			}
-			break;
-		case 5:
-			if(lineCount < parsedText.length - 1) {
-				if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-					ProgressLineCount();
-			} else if (!inCoroutine) {
-				// if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-					WaitAndEnd(display.wait);
-			}
-			break;
-		case 6:
-			if(lineCount < parsedText.length - 1) {
-				if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-					ProgressLineCount();
-			} else  if (!inCoroutine) {
-				// if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-					WaitAndContinue(display.wait, display.next);
-			}
-			break;
+				break;
+			case 1:
+				if(lineCount < parsedText.length - 1) {
+					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
+						ProgressLineCount();
+				}
+				break;
+			case 2:
+				if(lineCount < parsedText.length - 1) {
+					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
+						ProgressLineCount();
+				} else {
+					ShowPassword();
+				}
+				break;
+			case 3:
+				if(lineCount < parsedText.length - 1) {
+					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
+						ProgressLineCount();
+				} else {
+					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow")) {
+						var d = gameObject.GetComponent("DialogueInstance");
+						eval(display.script);
+					}
+				}
+				break;
+			case 4:
+				if(lineCount < parsedText.length - 1) {
+					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
+						ProgressLineCount();
+				} else {
+					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
+						EndDialogue();
+				}
+				break;
+			case 5:
+				if(lineCount < parsedText.length - 1) {
+					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
+						ProgressLineCount();
+				} else if (!inCoroutine) {
+					// if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
+						WaitAndEnd(display.wait);
+				}
+				break;
+			case 6:
+				if(lineCount < parsedText.length - 1) {
+					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
+						ProgressLineCount();
+				} else  if (!inCoroutine) {
+					// if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
+						WaitAndContinue(display.wait, display.next);
+				}
+				break;
+		}
 	}
 }
 
@@ -285,6 +318,7 @@ function Restart() {
 }
 
 function LoadDialogue (i:int) {
+	displayChoice = false;
 	curItem = i;
 	curContent = GUIContent("");
 	timeStart = Time.time;
@@ -379,7 +413,7 @@ function ShowWheel() {
 }
 
 function ShowList() {
-	GUILayout.BeginArea(Rect(0, Screen.height - 150, Screen.width, 150), "", "box");
+	GUILayout.BeginArea(Rect(Screen.width / 4, Screen.height / 2, Screen.width / 2, display.choices.length * 34 + 12), "", "box");
 	s = GUILayout.BeginScrollView(s);
 	for(var c in display.choices) {
 		if(GUILayout.Button(c.shortText, GUILayout.Height(30)))
