@@ -21,13 +21,19 @@ public class SceneFader : MonoBehaviour {
 	public string autoTransitionTo;
 
 
+
+	public float spy;
+
 	// Use this for initialization
 	void Start () {
 		startTime = Time.time;
 
-		if (!fadeIn) {
+		if (fadeIn) {
+			AudioListener.volume = 0;
+		} else {
 			AudioListener.volume = 1;
 		}
+
 	}
 	
 	// Update is called once per frame
@@ -42,6 +48,8 @@ public class SceneFader : MonoBehaviour {
 
 
 	void OnGUI() {
+
+		GUI.depth = 0;
 
 		if (inFadeIn()) {
 			drawFadeIn();
@@ -79,11 +87,12 @@ public class SceneFader : MonoBehaviour {
 		float percentageDone = (Time.time - startTime) / fadeLength;
 		float alphaBlend = (255 - (255 * percentageDone)) / 255;
 
-		GUI.depth = 0;
 		GUI.color = new Color(0, 0, 0, alphaBlend);
 		GUI.DrawTexture(new Rect( 0, 0, Screen.width, Screen.height ), this.blankScreenTexture, ScaleMode.StretchToFill, true);
-		GUI.depth = 1;
+
 		AudioListener.volume = percentageDone;
+
+		spy = percentageDone;
 
 		return percentageDone;
 	}
@@ -94,9 +103,12 @@ public class SceneFader : MonoBehaviour {
 		float alphaBlend = (255 * percentageDone) / 255;
 
 		GUI.color = new Color(0, 0, 0, alphaBlend);
+
 		GUI.DrawTexture(new Rect( 0, 0, Screen.width, Screen.height ), this.blankScreenTexture, ScaleMode.StretchToFill, true);
 
 		AudioListener.volume = 1 - percentageDone;
+
+		spy = percentageDone;
 
 		return percentageDone;
 	}

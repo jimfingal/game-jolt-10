@@ -19,6 +19,11 @@ public class Credits : MonoBehaviour {
 
 	public string[] attributionLines;
 
+	public SceneFader fader;
+
+	void Start() {
+		fader = GameObject.FindGameObjectWithTag("SceneFader").GetComponent<SceneFader>();
+	}
 
 	void Update() {
 
@@ -38,6 +43,8 @@ public class Credits : MonoBehaviour {
 
 		GUI.depth = 1;
 
+		float lastY = 25;
+
 		if (this.skin) {
 			GUI.skin = this.skin;
 		}
@@ -46,20 +53,30 @@ public class Credits : MonoBehaviour {
 
 		for (int i = 0; i < lines.Length; i++) {
 
-			GUI.Label(new Rect (0,  50 + i * (mainFontSize * 2), Screen.width, 50), lines[i]);
+			lastY = lastY + (mainFontSize * 2);
+			GUI.Label(new Rect (0,  lastY, Screen.width, 50), lines[i]);
+		
+		}
+
+		
+		if (GUI.Button(new Rect(Screen.width/2 - 100, lastY + 50, 200, 30), "Play again")) {
+			fader.triggerFadeOut("Startgame");
 		}
 
 		this.skin.label.fontSize = otherFontSize;
 	
+		lastY += 100;
+
 		for (int i = 0; i < attributionLines.Length; i++) {
 
-			GUI.Label(new Rect (0,  100 + Screen.height/3 + i * (otherFontSize * 2), Screen.width, 50), attributionLines[i]);
+			lastY = lastY + (otherFontSize * 2);
+			GUI.Label(new Rect (0,  lastY, Screen.width, 50), attributionLines[i]);
 		}
 
 		if (strobeEnabled && strobe) {
 			GUI.DrawTexture(new Rect (Random.Range(0, Screen.width / 2),  Random.Range(0, Screen.height / 2), texture.width, texture.height), texture);
-
 		}
+
 
 	}
 

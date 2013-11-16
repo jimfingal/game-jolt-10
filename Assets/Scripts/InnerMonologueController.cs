@@ -72,22 +72,24 @@ public class InnerMonologueController : MonoBehaviour {
 
 		if (mood.currentValue > mediocreThoughtThreshould) {
 
-			int range = Random.Range(0, happyThoughts.Count - 1);
+			int index = Random.Range(0, happyThoughts.Count - 1);
 
-			optionObject = happyThoughts[range];
+			optionObject = happyThoughts[index];
+			happyThoughts.RemoveAt(index);
 
 		} else if (mood.currentValue > sadThoughtThreshold) {
 			
-			int range = Random.Range(0, mediocreThoughts.Count - 1);
+			int index = Random.Range(0, mediocreThoughts.Count - 1);
 			
-			optionObject = mediocreThoughts[range];
+			optionObject = mediocreThoughts[index];
+			mediocreThoughts.RemoveAt(index);
 
 		} else {
 			
-			int range = Random.Range(0, sadThoughts.Count - 1);
+			int index = Random.Range(0, sadThoughts.Count - 1);
 			
-			optionObject = sadThoughts[range];
-
+			optionObject = sadThoughts[index];
+			sadThoughts.RemoveAt(index);
 		}
 
 		MonoBehaviour dialogOption = optionObject.GetComponent<MonoBehaviour>();
