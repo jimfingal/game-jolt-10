@@ -77,11 +77,13 @@ public class Epilogue : MonoBehaviour {
 			return "You were in a foul mood when you left the party. You cursed under your breath while leaving. People heard you.";
 		} else if (stats.playerMood < 30) {
 			return "You left feeling down in the dumps. It's nothing saturday morning cartoons won't fix though.";
-		} else if (stats.playerMood < 45) {
+		} else if (stats.playerMood < 55) {
 			return "A malaise overcame you as you walked to your car. You resolve to quit your job when you save enough money.";
-		} else if (stats.playerMood < 60) {
+		} else if (stats.playerMood < 71) {
 			return "All in all, you didn't have a great time, but you survived.";
-		} else {
+		}  else if (stats.playerMood < 81) {
+			return "You left in pretty much the same mood you arrived in.";
+		}else {
 			return "You left happier than you came. A successful party.";
 		}
 	}
@@ -99,7 +101,7 @@ public class Epilogue : MonoBehaviour {
 		} else if (stats.playerSobriety < 81) {
 			return "You walk around in the field for a while to sober up after one drink of punch before driving away.";
 		} else {
-			return "You stayed sober during the party, a wise choice.";
+			return "You stayed stone cold sober, a wise choice.";
 		}	}
 
 	void Update() {

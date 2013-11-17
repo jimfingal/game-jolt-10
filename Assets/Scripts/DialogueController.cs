@@ -47,7 +47,9 @@ public class DialogueController : MonoBehaviour {
 			this.impactedStatBar = barToImpact.GetComponent<PlayerStatBar>();
 		}
 
-		defaultDialogue =  GameObject.FindWithTag("DefaultDialogue").GetComponent<DefaultDialogue>();
+		if (GameObject.FindWithTag("DefaultDialogue")) {
+			defaultDialogue =  GameObject.FindWithTag("DefaultDialogue").GetComponent<DefaultDialogue>();
+		}
 
 		if (GameObject.FindGameObjectWithTag("InnerMonologue")) {
 			innerMonologue = GameObject.FindGameObjectWithTag("InnerMonologue");
@@ -106,7 +108,11 @@ public class DialogueController : MonoBehaviour {
 
 	private MonoBehaviour getNextDialogOption() {
 
-		MonoBehaviour dialogOption = defaultDialogue.getDefaultOption();
+		MonoBehaviour dialogOption = null;
+
+		if (defaultDialogue) {
+			dialogOption = defaultDialogue.getDefaultOption();
+		}
 
 		if (!dialogOption) {
 

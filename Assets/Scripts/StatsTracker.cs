@@ -9,8 +9,17 @@ public class StatsTracker : MonoBehaviour {
 
 	private bool timerStarted = false;
 
+	private static bool created = false;
+
 	void Awake() {
-		DontDestroyOnLoad(transform.gameObject);
+
+		if (!created) {
+			DontDestroyOnLoad(transform.gameObject);
+			created = true;
+		} else {
+			Destroy(this.gameObject);
+		} 
+
 	}
 
 	// Update is called once per frame
