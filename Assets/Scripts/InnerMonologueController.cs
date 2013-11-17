@@ -72,31 +72,34 @@ public class InnerMonologueController : MonoBehaviour {
 
 	private MonoBehaviour getNextDialogOption() {
 
-		GameObject optionObject;
+		GameObject optionObject = null;
+		MonoBehaviour dialogOption = null;
 
-		if (mood.currentValue > mediocreThoughtThreshould) {
+		if (mood.currentValue > mediocreThoughtThreshould && happyThoughts.Count > 0) {
 
 			int index = Random.Range(0, happyThoughts.Count - 1);
 
 			optionObject = happyThoughts[index];
 			happyThoughts.RemoveAt(index);
+			dialogOption = optionObject.GetComponent<MonoBehaviour>();
 
-		} else if (mood.currentValue > sadThoughtThreshold) {
+		} else if (mood.currentValue > sadThoughtThreshold && mediocreThoughts.Count > 0) {
 			
 			int index = Random.Range(0, mediocreThoughts.Count - 1);
 			
 			optionObject = mediocreThoughts[index];
 			mediocreThoughts.RemoveAt(index);
+			dialogOption = optionObject.GetComponent<MonoBehaviour>();
 
-		} else {
+		} else if (sadThoughts.Count > 0) {
 			
 			int index = Random.Range(0, sadThoughts.Count - 1);
 			
 			optionObject = sadThoughts[index];
 			sadThoughts.RemoveAt(index);
+			dialogOption = optionObject.GetComponent<MonoBehaviour>();
 		}
 
-		MonoBehaviour dialogOption = optionObject.GetComponent<MonoBehaviour>();
 
 		return dialogOption;
 	}
@@ -107,10 +110,10 @@ public class InnerMonologueController : MonoBehaviour {
 
 		this.currentDialog = this.getNextDialogOption();
 
-		this.currentDialog.enabled = true;
-		 
-		this.inConversation = true;
-
+		if (this.currentDialog) {
+			this.currentDialog.enabled = true;
+			this.inConversation = true;
+		}
 	}
 
 	private void endConversation() {

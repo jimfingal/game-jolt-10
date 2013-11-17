@@ -7,6 +7,7 @@ public class DialogueController : MonoBehaviour {
 	public float rotationSpeed = 0.01f;
 	public bool loopLastDialogOption = true;
 	public bool triggerOnlyOnce = false;
+	public bool useDefaults = true;
 
 	public GameObject[] dialogOptions;
 	public int[] dialogImpact;
@@ -110,7 +111,7 @@ public class DialogueController : MonoBehaviour {
 
 		MonoBehaviour dialogOption = null;
 
-		if (defaultDialogue) {
+		if (useDefaults && defaultDialogue) {
 			dialogOption = defaultDialogue.getDefaultOption();
 		}
 
