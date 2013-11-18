@@ -90,10 +90,10 @@ public class Epilogue : MonoBehaviour {
 	
 	private string getSobrietyText() {
 
-		if (stats.playerSobriety < 30) {
-			return "You passed out before making it to your car. Your friend took care of you and gave you a ride home.";
-		} else if (stats.playerSobriety < 35) {
+		if (stats.playerSobriety < 21) {
 			return "You threw up on your car, and somehow managed to call a cab home. You swear off punch forever.";
+		} else if (stats.playerSobriety < 36) {
+			return "You passed out before making it to your car. Your friend took care of you and gave you a ride home.";
 		} else if (stats.playerSobriety < 51) {
 			return "You don't have it in you to drive home, so you fall asleep in your back seat.";
 		} else if (stats.playerSobriety < 66) {

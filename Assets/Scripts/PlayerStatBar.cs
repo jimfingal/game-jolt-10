@@ -5,6 +5,8 @@ public class PlayerStatBar : MonoBehaviour {
 
 	public string label;
 	public float maxValue = 100;
+	public float minValue = 5;
+
 	public float currentValue = 100;
 	public float fadeSpeed = 0.1f;
 
@@ -23,8 +25,14 @@ public class PlayerStatBar : MonoBehaviour {
 		if (toggleOscillate) {
 			
 			float diff = Mathf.Sin(Time.time - oscillationStartTime) * oscillationAmount;
-			currentValue = oscillationStart + diff;
+			currentValue += diff;
 			
+		}
+
+		if (currentValue > maxValue) {
+			currentValue = maxValue;
+		} else if (currentValue < minValue) {
+			currentValue = minValue;
 		}
 
 	}

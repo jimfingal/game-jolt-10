@@ -138,9 +138,15 @@ function OnDisable() {
 
 function Update() {
 	var text = parsedText[lineCount];
+	
+	// Hack to set time back so we have full text
+	if (Input.GetButtonDown("Talk")) {
+		timeStart = Time.time - (text.length / textSpeed) - 10;
+	}
+
 	var chars = (Time.time - timeStart) * textSpeed;
 	if(chars < text.length) {
-		text = text.Substring(0, chars);
+		text = text.Substring(0, Mathf.Clamp(chars, 0, text.length));
 		// if (!letterSound.isPlaying) {
 			letterSound.Play();
 		//}
@@ -234,8 +240,9 @@ function DoNextButton() {
 					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
 						ProgressLineCount();
 				} else {
-					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
+					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow")) {
 						LoadDialogue(display.next);
+					}
 				}
 				break;
 			case 1:
@@ -259,7 +266,7 @@ function DoNextButton() {
 				} else {
 				
 					if (!display.scriptRunning) {
-						if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow")) {
+						if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow")  || Input.GetButtonDown("Talk")) {
 							// var d = gameObject.GetComponent("DialogueInstance");
 							display.scriptRunning = true;
 							eval(display.script);
@@ -272,8 +279,9 @@ function DoNextButton() {
 					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
 						ProgressLineCount();
 				} else {
-					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
+					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow")  || Input.GetButtonDown("Talk"))  {
 						EndDialogue();
+					}
 				}
 				break;
 			case 5:

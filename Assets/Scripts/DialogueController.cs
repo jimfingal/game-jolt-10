@@ -13,6 +13,8 @@ public class DialogueController : MonoBehaviour {
 	public int[] dialogImpact;
 	public GameObject barToImpact = null;
 
+	public Vector3 lookOffset = new Vector3(0, 0, 0);
+
 	public bool paralyzesPlayerDuringDialogue = true;
 	public bool orientsPlayerTowardsSelf = true;
 
@@ -142,7 +144,7 @@ public class DialogueController : MonoBehaviour {
 		Vector3 myPosition = gameObject.transform.position;
 		Vector3 playerPosition = player.transform.position;
 
-		this.wantedRotation = Quaternion.LookRotation(myPosition - playerPosition);
+		this.wantedRotation = Quaternion.LookRotation((myPosition + lookOffset) - playerPosition);
 
 
 	}
