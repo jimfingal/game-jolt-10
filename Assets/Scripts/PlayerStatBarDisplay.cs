@@ -32,10 +32,10 @@ public class PlayerStatBarDisplay : MonoBehaviour
 		if (drawBar) {
 
 			GUI.depth = 2;
-			GUI.Box(new Rect (Screen.width - posOffset.x, Screen.height - posOffset.y, size.x, size.y), "");
+			GUI.Box(new Rect (Screen.width - posOffset.x, posOffset.y, size.x, size.y), "");
 			GUI.skin = customSkin;
-			GUI.Box(new Rect(Screen.width - posOffset.x, Screen.height - posOffset.y, statBar.getStatPercentage() * size.x, size.y), "");
-			GUI.Label(new Rect (Screen.width - posOffset.x, Screen.height - posOffset.y, size.x, size.y), statBar.label);
+			GUI.Box(new Rect(Screen.width - posOffset.x, posOffset.y, statBar.getStatPercentage() * size.x, size.y), "");
+			GUI.Label(new Rect (Screen.width - posOffset.x, posOffset.y, size.x, size.y), statBar.label);
 			GUI.skin = null;
 
 		}
