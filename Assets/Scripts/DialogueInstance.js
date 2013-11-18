@@ -29,10 +29,10 @@ var ints : int[] = [0, 0, 0, 0];
 var strings : String[] = ["", "", "", ""]; 
 private var jumpto :int;
 private var s : Vector2 = Vector2.zero;
-var movement : GameObject;
+private var movement : GameObject;
 var endOn: int = 50; 
 
-var letterSound : Component; 
+private var letterSound : Component; 
 
 private var displayChoice : boolean = false;
 
@@ -50,7 +50,7 @@ private var AUTOEND : int = 5;
 private var AUTOCONTINUE : int = 6;
 
 
-var inCoroutine : boolean = false;
+private var inCoroutine : boolean = false;
 
 class DialogueEntry {
 	var name :String;
@@ -72,6 +72,7 @@ class DialogueEntry {
 	var narration : AudioClip[];
 	var script :String;
 	var wait : int = 5;
+	var scriptRunning : boolean = false;
 		
 
 	// 0 - next, 1 - choice, 2 - password, 3 - event, 4 - end
@@ -256,9 +257,13 @@ function DoNextButton() {
 					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
 						ProgressLineCount();
 				} else {
-					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow")) {
-						var d = gameObject.GetComponent("DialogueInstance");
-						eval(display.script);
+				
+					if (!display.scriptRunning) {
+						if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow")) {
+							// var d = gameObject.GetComponent("DialogueInstance");
+							display.scriptRunning = true;
+							eval(display.script);
+						}
 					}
 				}
 				break;
@@ -276,31 +281,50 @@ function DoNextButton() {
 					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
 						ProgressLineCount();
 				} else if (!inCoroutine) {
-					// if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-						WaitAndEnd(display.wait);
+					WaitAndEnd(display.wait);
+				} else if (Input.GetButtonDown("Talk")) {
+					AbruptEnd();
 				}
 				break;
 			case 6:
 				if(lineCount < parsedText.length - 1) {
 					if(GUI.Button(Rect(Screen.width - 84, nextHeight, 64, 64), "Next", "arrow"))
 						ProgressLineCount();
-				} else  if (!inCoroutine) {
-					// if(GUI.Button(Rect(Screen.width - 84, Screen.height - 84, 64, 64), "Next", "arrow"))
-						WaitAndContinue(display.wait, display.next);
+				} else if (!inCoroutine) {
+					WaitAndContinue(display.wait, display.next);
+				} else if (Input.GetButtonDown("Talk")) {
+					CancelAndContinue(display.next);
 				}
 				break;
 		}
 	}
 }
 
+
+function AbruptEnd() {
+	StopCoroutine("WaitAndEnd");
+	End();
+}
+
 function WaitAndEnd (waitTime : float) {
-		inCoroutine = true;
-		// suspend execution for waitTime seconds
-		yield WaitForSeconds (waitTime);
-		inCoroutine = false;
-		parsedText = new Array();
-		curContent = GUIContent("");
-		EndDialogue();
+	inCoroutine = true;
+	// suspend execution for waitTime seconds
+	yield WaitForSeconds (waitTime);
+	End();
+}
+
+function End() {
+	inCoroutine = false;
+	parsedText = new Array();
+	curContent = GUIContent("");
+	EndDialogue();
+}
+
+
+function CancelAndContinue(next : int) {
+	StopCoroutine("WaitAndContinue");
+	inCoroutine = false;
+	LoadDialogue(next);
 }
 
 function WaitAndContinue (waitTime : float, next : int) {
@@ -330,6 +354,7 @@ function LoadDialogue (i:int) {
 		gameObject.AddComponent(AudioSource);
 		aud = gameObject.GetComponent(AudioSource);
 	}
+	display.scriptRunning = false;
 	PlayClip(i);
 }
 

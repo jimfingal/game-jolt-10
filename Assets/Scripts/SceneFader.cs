@@ -20,6 +20,7 @@ public class SceneFader : MonoBehaviour {
 	public float autoFadeOutTimer = 10;
 	public string autoTransitionTo;
 
+	private StatsTracker stats;
 
 
 	public float spy;
@@ -34,6 +35,11 @@ public class SceneFader : MonoBehaviour {
 			AudioListener.volume = 1;
 		}
 
+		if ( GameObject.FindGameObjectWithTag("StatsTracker")) {
+			stats = GameObject.FindGameObjectWithTag("StatsTracker").GetComponent<StatsTracker>();
+		} else {
+			Debug.Log("Stats Tracker not set, stats will not be saved.");
+		}
 	}
 	
 	// Update is called once per frame
@@ -72,6 +78,9 @@ public class SceneFader : MonoBehaviour {
 		loadThisLevel = level;
 		fadeOutStart = Time.time;
 
+		if (stats) {
+			stats.save();
+		}
 	}
 
 	private bool inFadeIn() {

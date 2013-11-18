@@ -7,6 +7,7 @@ public class DialogueController : MonoBehaviour {
 	public float rotationSpeed = 0.01f;
 	public bool loopLastDialogOption = true;
 	public bool triggerOnlyOnce = false;
+	public bool useDefaults = true;
 
 	public GameObject[] dialogOptions;
 	public int[] dialogImpact;
@@ -27,6 +28,10 @@ public class DialogueController : MonoBehaviour {
 	private MonoBehaviour currentDialog;
 	private MonoBehaviour[] playerMovementScripts;
 	private int dialogIndex = 0;
+
+	private DefaultDialogue defaultDialogue;
+
+	private	GameObject innerMonologue;
 	
 	// Use this for initialization
 	void Start () {
@@ -41,6 +46,14 @@ public class DialogueController : MonoBehaviour {
 
 		if (barToImpact) {
 			this.impactedStatBar = barToImpact.GetComponent<PlayerStatBar>();
+		}
+
+		if (GameObject.FindWithTag("DefaultDialogue")) {
+			defaultDialogue =  GameObject.FindWithTag("DefaultDialogue").GetComponent<DefaultDialogue>();
+		}
+
+		if (GameObject.FindGameObjectWithTag("InnerMonologue")) {
+			innerMonologue = GameObject.FindGameObjectWithTag("InnerMonologue");
 		}
 	}
 
@@ -96,16 +109,18 @@ public class DialogueController : MonoBehaviour {
 
 	private MonoBehaviour getNextDialogOption() {
 
-		if (dialogIndex >= dialogOptions.Length) {
-			if (loopLastDialogOption) {
-				dialogIndex = dialogOptions.Length - 1;
-			} else {
-				dialogIndex = 0;
-			}
+		MonoBehaviour dialogOption = null;
+
+		if (useDefaults && defaultDialogue) {
+			dialogOption = defaultDialogue.getDefaultOption();
 		}
 
-		GameObject optionObject = dialogOptions[dialogIndex];
-		MonoBehaviour dialogOption = optionObject.GetComponent<MonoBehaviour>();
+		if (!dialogOption) {
+
+			GameObject optionObject = dialogOptions[dialogIndex];
+			dialogOption = optionObject.GetComponent<MonoBehaviour>();
+
+		}
 
 		return dialogOption;
 	}
@@ -133,6 +148,7 @@ public class DialogueController : MonoBehaviour {
 	}
 
 	private void endConversation() {
+
 		this.inConversation = false;
 		this.playerConversationStatus.setConversationReadiness(true);
 		if (this.paralyzesPlayerDuringDialogue) {
@@ -150,6 +166,19 @@ public class DialogueController : MonoBehaviour {
 
 		this.dialogIndex++;
 
+		if (dialogIndex >= dialogOptions.Length) {
+			if (loopLastDialogOption) {
+				dialogIndex = dialogOptions.Length - 1;
+			} else {
+				dialogIndex = 0;
+			}
+		}
+
+		// Haxy way to reset counter
+		if (innerMonologue) {
+			innerMonologue.SetActive(false);
+			innerMonologue.SetActive(true);
+		}
 	}
 
 }
