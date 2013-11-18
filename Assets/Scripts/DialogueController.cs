@@ -34,6 +34,7 @@ public class DialogueController : MonoBehaviour {
 	private DefaultDialogue defaultDialogue;
 
 	private	GameObject innerMonologue;
+
 	
 	// Use this for initialization
 	void Start () {
@@ -146,7 +147,6 @@ public class DialogueController : MonoBehaviour {
 
 		this.wantedRotation = Quaternion.LookRotation((myPosition + lookOffset) - playerPosition);
 
-
 	}
 
 	private void endConversation() {
@@ -181,6 +181,7 @@ public class DialogueController : MonoBehaviour {
 			innerMonologue.SetActive(false);
 			innerMonologue.SetActive(true);
 		}
+
 	}
 
 }

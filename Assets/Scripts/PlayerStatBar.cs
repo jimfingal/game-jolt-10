@@ -20,8 +20,6 @@ public class PlayerStatBar : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		testFade();
-		
 		if (toggleOscillate) {
 			
 			float diff = Mathf.Sin(Time.time - oscillationStartTime) * oscillationAmount;

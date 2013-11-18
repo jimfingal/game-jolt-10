@@ -14,7 +14,6 @@ public class GameStartup : MonoBehaviour {
 		}
 
 		stats = GameObject.FindGameObjectWithTag("StatsTracker").GetComponent<StatsTracker>();
-
 	}
 
 	void OnEnabled() {
@@ -25,6 +24,7 @@ public class GameStartup : MonoBehaviour {
 
 		// Hack 
 		stats.timeSpentAtParty = 0;
+
 	}
 
 }

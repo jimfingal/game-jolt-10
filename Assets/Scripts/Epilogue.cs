@@ -74,11 +74,11 @@ public class Epilogue : MonoBehaviour {
 	private string getMoodText() {
 
 		if (stats.playerMood < 10) {
-			return "You were in a foul mood when you left the party. You cursed under your breath while leaving. People heard you.";
+			return "You were in a foul mood when you left the party.";
 		} else if (stats.playerMood < 30) {
-			return "You left feeling down in the dumps. It's nothing saturday morning cartoons won't fix though.";
+			return "You left feeling down in the dumps. It's nothing video games won't fix though.";
 		} else if (stats.playerMood < 55) {
-			return "A malaise overcame you as you walked to your car. You resolve to quit your job when you save enough money.";
+			return "A malaise overcame you as you walked to your car. You resolve to quit your job soon.";
 		} else if (stats.playerMood < 71) {
 			return "All in all, you didn't have a great time, but you survived.";
 		}  else if (stats.playerMood < 81) {
@@ -91,15 +91,15 @@ public class Epilogue : MonoBehaviour {
 	private string getSobrietyText() {
 
 		if (stats.playerSobriety < 21) {
-			return "You threw up on your car, and somehow managed to call a cab home. You swear off punch forever.";
+			return "You threw up on your car, and somehow managed to call a cab home.";
 		} else if (stats.playerSobriety < 36) {
-			return "You passed out before making it to your car. Your friend took care of you and gave you a ride home.";
+			return "You passed out before making it to your car. Your friend gave you a ride home.";
 		} else if (stats.playerSobriety < 51) {
 			return "You don't have it in you to drive home, so you fall asleep in your back seat.";
 		} else if (stats.playerSobriety < 66) {
-			return "You are feeling tipsy as you leave. Your friend comes outside and you talk for a few hours before driving home.";
+			return "You are feeling tipsy. You talk with your friend for a few hours before driving home.";
 		} else if (stats.playerSobriety < 81) {
-			return "You walk around in the field for a while to sober up after one drink of punch before driving away.";
+			return "You walk around in the field for a while to sober up before driving away.";
 		} else {
 			return "You stayed stone cold sober, a wise choice.";
 		}	}

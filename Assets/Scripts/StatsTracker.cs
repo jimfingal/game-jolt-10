@@ -28,6 +28,7 @@ public class StatsTracker : MonoBehaviour {
 		if (timerStarted) {
 			timeSpentAtParty += Time.deltaTime;
 		}
+
 	}
 
 	public void startTimer() {
