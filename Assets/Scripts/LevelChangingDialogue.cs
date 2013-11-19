@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class LevelChangingDialogue : MonoBehaviour {
@@ -19,9 +19,9 @@ public class LevelChangingDialogue : MonoBehaviour {
 	private Quaternion wantedRotation;
 	private MonoBehaviour currentDialog;
 	private MonoBehaviour[] playerMovementScripts;
-
+	
 	public Vector3 pushBack;
-
+	
 	// Use this for initialization
 	void Start () {
 
@@ -48,6 +48,10 @@ public class LevelChangingDialogue : MonoBehaviour {
 		if (this.weShouldEndConversation()) {
 			this.endConversation();
 		} 
+
+		if (this.inConversation) {
+			CursorLocker.unlockCursor = true;
+		}
 		
 	}
 	
@@ -85,6 +89,7 @@ public class LevelChangingDialogue : MonoBehaviour {
 	private void startConversation() {
 
 		Debug.Log("Pressed 'Talk' Button");
+		CursorLocker.unlockCursor = true;
 
 		if (this.paralyzesPlayerDuringDialogue) {
 			this.togglePlayerMovementScripts(false);
@@ -98,10 +103,11 @@ public class LevelChangingDialogue : MonoBehaviour {
 		Vector3 playerPosition = player.transform.position;
 		this.wantedRotation = Quaternion.LookRotation(myPosition - playerPosition);
 
-
 	}
 
 	private void endConversation() {
+
+		CursorLocker.unlockCursor = false;
 
 		this.inConversation = false;
 		this.playerConversationStatus.setConversationReadiness(true);

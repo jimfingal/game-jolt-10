@@ -103,6 +103,8 @@ public class SceneFader : MonoBehaviour {
 
 		spy = percentageDone;
 
+		CursorLocker.unlockCursor = false;
+
 		return percentageDone;
 	}
 
@@ -118,6 +120,8 @@ public class SceneFader : MonoBehaviour {
 		AudioListener.volume = 1 - percentageDone;
 
 		spy = percentageDone;
+
+		CursorLocker.unlockCursor = false;
 
 		return percentageDone;
 	}

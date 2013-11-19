@@ -7,6 +7,8 @@ public class DialogueController : MonoBehaviour {
 	public float rotationSpeed = 0.01f;
 	public bool loopLastDialogOption = true;
 	public bool triggerOnlyOnce = false;
+	private bool triggered = false;
+
 	public bool useDefaults = true;
 
 	public GameObject[] dialogOptions;
@@ -34,6 +36,8 @@ public class DialogueController : MonoBehaviour {
 	private DefaultDialogue defaultDialogue;
 
 	private	GameObject innerMonologue;
+
+	public static bool dialogUnlockingCursor = false;
 
 	
 	// Use this for initialization
@@ -96,7 +100,7 @@ public class DialogueController : MonoBehaviour {
 		return this.enableDialogKey && 
 				(Input.GetButtonDown("Talk") || this.triggerOnCollision) 
 				&& !this.inConversation && playerConversationStatus.isReadyForNewConversation() &&
-				!(triggerOnlyOnce && dialogIndex > 0);
+				!(triggerOnlyOnce && triggered);
 	}
 
 	private bool weShouldEndConversation() {
@@ -130,6 +134,9 @@ public class DialogueController : MonoBehaviour {
 
 	private void startConversation() {
 
+		CursorLocker.unlockCursor = true;
+		triggered = true;
+
 		Debug.Log("Pressed 'Talk' Button");
 
 		if (this.paralyzesPlayerDuringDialogue) {
@@ -146,13 +153,16 @@ public class DialogueController : MonoBehaviour {
 		Vector3 playerPosition = player.transform.position;
 
 		this.wantedRotation = Quaternion.LookRotation((myPosition + lookOffset) - playerPosition);
-
+				
 	}
 
 	private void endConversation() {
 
+		CursorLocker.unlockCursor = false;
+
 		this.inConversation = false;
 		this.playerConversationStatus.setConversationReadiness(true);
+
 		if (this.paralyzesPlayerDuringDialogue) {
 			this.togglePlayerMovementScripts(true);
 		}

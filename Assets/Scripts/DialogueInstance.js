@@ -49,8 +49,8 @@ private var END : int = 4;
 private var AUTOEND : int = 5;
 private var AUTOCONTINUE : int = 6;
 
-
 private var inCoroutine : boolean = false;
+
 
 class DialogueEntry {
 	var name :String;
@@ -137,6 +137,7 @@ function OnDisable() {
 }
 
 function Update() {
+
 	var text = parsedText[lineCount];
 	
 	// Hack to set time back so we have full text
