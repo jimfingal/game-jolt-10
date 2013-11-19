@@ -103,7 +103,7 @@ public class SceneFader : MonoBehaviour {
 
 		spy = percentageDone;
 
-		CursorLocker.unlockCursor = false;
+		CursorLocker.setUnlockCursor(false);
 
 		return percentageDone;
 	}
@@ -121,7 +121,7 @@ public class SceneFader : MonoBehaviour {
 
 		spy = percentageDone;
 
-		CursorLocker.unlockCursor = false;
+		CursorLocker.setUnlockCursor(false);
 
 		return percentageDone;
 	}

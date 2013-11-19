@@ -50,7 +50,7 @@ public class LevelChangingDialogue : MonoBehaviour {
 		} 
 
 		if (this.inConversation) {
-			CursorLocker.unlockCursor = true;
+			CursorLocker.setUnlockCursor(true);
 		}
 		
 	}
@@ -89,12 +89,13 @@ public class LevelChangingDialogue : MonoBehaviour {
 	private void startConversation() {
 
 		Debug.Log("Pressed 'Talk' Button");
-		CursorLocker.unlockCursor = true;
+
+		CursorLocker.setUnlockCursor(true);
+		this.inConversation = true;
 
 		if (this.paralyzesPlayerDuringDialogue) {
 			this.togglePlayerMovementScripts(false);
 		}
-		this.inConversation = true;
 		this.playerConversationStatus.setConversationReadiness(false);
 
 		this.currentDialog.enabled = true;
@@ -107,7 +108,7 @@ public class LevelChangingDialogue : MonoBehaviour {
 
 	private void endConversation() {
 
-		CursorLocker.unlockCursor = false;
+		CursorLocker.setUnlockCursor(false);
 
 		this.inConversation = false;
 		this.playerConversationStatus.setConversationReadiness(true);

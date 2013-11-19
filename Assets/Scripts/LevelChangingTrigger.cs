@@ -16,7 +16,7 @@ public class LevelChangingTrigger : MonoBehaviour {
 
 	void OnTriggerEnter (Collider other) {
 		this.fader.triggerFadeOut(levelToTransitionTo);
-		CursorLocker.unlockCursor = true;
+		CursorLocker.setUnlockCursor(true);
 	}
 
 

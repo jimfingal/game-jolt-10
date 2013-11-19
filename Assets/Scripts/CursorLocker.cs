@@ -37,11 +37,12 @@ public class CursorLocker : MonoBehaviour {
 
 	}
 
-	public static bool unlockCursor = false;
+	private static bool unlockCursor = false;
 	public bool unlockCursorWatcher = false;
 
 
 	void Update() {
+
 		unlockCursorWatcher = unlockCursor;
 
 		if (!unlockCursor) {
@@ -55,4 +56,11 @@ public class CursorLocker : MonoBehaviour {
 		}
 
 	}
+
+
+	public static void setUnlockCursor(bool value) {
+		unlockCursor = value;
+	}
+
+
 }

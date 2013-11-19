@@ -27,8 +27,6 @@ public class Credits : MonoBehaviour {
 
 	void Update() {
 
-		CursorLocker.unlockCursor = true;
-
 		if (strobeEnabled) {
 			frame++;
 
@@ -42,6 +40,8 @@ public class Credits : MonoBehaviour {
 	}
 
 	void OnGUI() {
+
+		CursorLocker.setUnlockCursor(true);
 
 		GUI.depth = 1;
 
@@ -62,7 +62,7 @@ public class Credits : MonoBehaviour {
 
 		
 		if (GUI.Button(new Rect(Screen.width/2 - 100, lastY + 50, 200, 30), "Play again")) {
-			CursorLocker.unlockCursor = false;
+			CursorLocker.setUnlockCursor(false);
 			fader.triggerFadeOut("Startgame");
 		}
 

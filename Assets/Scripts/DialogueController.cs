@@ -134,7 +134,7 @@ public class DialogueController : MonoBehaviour {
 
 	private void startConversation() {
 
-		CursorLocker.unlockCursor = true;
+		CursorLocker.setUnlockCursor(true);
 		triggered = true;
 
 		Debug.Log("Pressed 'Talk' Button");
@@ -158,7 +158,7 @@ public class DialogueController : MonoBehaviour {
 
 	private void endConversation() {
 
-		CursorLocker.unlockCursor = false;
+		CursorLocker.setUnlockCursor(false);
 
 		this.inConversation = false;
 		this.playerConversationStatus.setConversationReadiness(true);
